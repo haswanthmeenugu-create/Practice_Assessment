@@ -48,7 +48,10 @@ Open http://localhost:4200. API docs at http://localhost:8080/swagger-ui.html.
 
 MySQL 8 on `localhost:3306`. The app creates the `salary_management` database
 and schema on first start and seeds 10,000 employees if the table is empty.
-Credentials come from the environment; nothing secret is committed.
+
+The defaults in `application.properties` point at a local development MySQL
+(`root` / `Haswanth@123`). Override them with environment variables for any
+other environment:
 
 ```powershell
 $env:DB_USERNAME = "root"
