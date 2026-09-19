@@ -52,6 +52,11 @@
   .mono {
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
     font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .nowrap {
+    white-space: nowrap;
   }
 
   .name {

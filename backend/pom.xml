@@ -51,11 +51,11 @@
             <version>${springdoc.version}</version>
         </dependency>
 
-        <!-- H2 for fast, deterministic tests (no external DB needed) -->
+        <!-- H2: in-memory database for tests and for the zero-setup `demo` profile -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
-            <scope>test</scope>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

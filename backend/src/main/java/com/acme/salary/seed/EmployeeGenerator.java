@@ -85,16 +85,18 @@ public class EmployeeGenerator {
             Map.entry(Department.LEGAL, "Counsel")
     );
 
-    private static final Map<Level, String> LEVEL_PREFIX = Map.ofEntries(
-            Map.entry(Level.INTERN, "Intern"),
-            Map.entry(Level.JUNIOR, "Junior"),
-            Map.entry(Level.MID, ""),
-            Map.entry(Level.SENIOR, "Senior"),
-            Map.entry(Level.STAFF, "Staff"),
-            Map.entry(Level.PRINCIPAL, "Principal"),
-            Map.entry(Level.MANAGER, "Manager,"),
-            Map.entry(Level.DIRECTOR, "Director,"),
-            Map.entry(Level.VP, "VP,")
+    /** Functional area name used for leadership titles ("Director of Engineering"). */
+    private static final Map<Department, String> DEPT_AREA = Map.ofEntries(
+            Map.entry(Department.ENGINEERING, "Engineering"),
+            Map.entry(Department.DATA, "Data"),
+            Map.entry(Department.PRODUCT, "Product"),
+            Map.entry(Department.SALES, "Sales"),
+            Map.entry(Department.MARKETING, "Marketing"),
+            Map.entry(Department.FINANCE, "Finance"),
+            Map.entry(Department.HUMAN_RESOURCES, "People"),
+            Map.entry(Department.OPERATIONS, "Operations"),
+            Map.entry(Department.CUSTOMER_SUPPORT, "Customer Support"),
+            Map.entry(Department.LEGAL, "Legal")
     );
 
     private static final String[] FIRST_NAMES = {
@@ -173,10 +175,24 @@ public class EmployeeGenerator {
         return BigDecimal.valueOf(rounded).setScale(2, RoundingMode.HALF_UP);
     }
 
+    /**
+     * Individual-contributor levels prefix the role ("Senior Data Scientist");
+     * leadership levels use the functional area ("Director of Finance").
+     */
     private static String jobTitle(Level level, Department dept) {
-        String prefix = LEVEL_PREFIX.get(level);
         String role = DEPT_ROLE.get(dept);
-        return prefix.isEmpty() ? role : prefix + " " + role;
+        String area = DEPT_AREA.get(dept);
+        return switch (level) {
+            case INTERN -> role + " Intern";
+            case JUNIOR -> "Junior " + role;
+            case MID -> role;
+            case SENIOR -> "Senior " + role;
+            case STAFF -> "Staff " + role;
+            case PRINCIPAL -> "Principal " + role;
+            case MANAGER -> area + " Manager";
+            case DIRECTOR -> "Director of " + area;
+            case VP -> "VP of " + area;
+        };
     }
 
     private static EmploymentType employmentType(Random rnd) {
