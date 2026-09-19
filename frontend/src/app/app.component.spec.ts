@@ -14,7 +14,7 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const text = (fixture.nativeElement as HTMLElement).textContent ?? '';
-    expect(text).toContain('ACME Salary Management');
+    expect(text).toContain('ACME Salary');
     expect(text).toContain('Employees');
     expect(text).toContain('Pay analytics');
   });

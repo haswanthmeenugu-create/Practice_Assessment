@@ -1,7 +1,10 @@
 <div class="page-header">
   <div>
     <h1>Employees</h1>
-    <p class="subtitle">{{ total() | number }} records</p>
+    <span class="count-chip">
+      <mat-icon>badge</mat-icon>
+      {{ total() | number }} {{ hasActiveFilters() ? 'matching' : 'employees' }}
+    </span>
   </div>
   <button mat-flat-button color="primary" (click)="add()">
     <mat-icon>add</mat-icon>
@@ -77,8 +80,13 @@
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
       <td mat-cell *matCellDef="let e">
-        <div class="name">{{ e.firstName }} {{ e.lastName }}</div>
-        <div class="muted">{{ e.email }}</div>
+        <div class="person">
+          <span class="avatar" [style.background]="avatarColor(e)">{{ initials(e) }}</span>
+          <div>
+            <div class="name">{{ e.firstName }} {{ e.lastName }}</div>
+            <div class="muted">{{ e.email }}</div>
+          </div>
+        </div>
       </td>
     </ng-container>
 
@@ -89,7 +97,7 @@
 
     <ng-container matColumnDef="department">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Department</th>
-      <td mat-cell *matCellDef="let e">{{ e.department }}</td>
+      <td mat-cell *matCellDef="let e"><span class="pill">{{ e.department | titlecase | replaceUnderscore }}</span></td>
     </ng-container>
 
     <ng-container matColumnDef="jobTitle">
@@ -111,7 +119,7 @@
 
     <ng-container matColumnDef="baseSalaryUsd">
       <th mat-header-cell *matHeaderCellDef mat-sort-header class="num">Salary (USD)</th>
-      <td mat-cell *matCellDef="let e" class="num">
+      <td mat-cell *matCellDef="let e" class="num usd">
         {{ e.baseSalaryUsd | currency:'USD':'symbol':'1.0-0' }}
       </td>
     </ng-container>
@@ -119,7 +127,7 @@
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef>Status</th>
       <td mat-cell *matCellDef="let e">
-        <span class="status status-{{ e.status | lowercase }}">{{ e.status }}</span>
+        <span class="status status-{{ e.status | lowercase }}">{{ e.status | titlecase | replaceUnderscore }}</span>
       </td>
     </ng-container>
 

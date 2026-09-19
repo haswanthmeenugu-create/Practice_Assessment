@@ -10,6 +10,7 @@ import { forkJoin } from 'rxjs';
 import { AnalyticsApi } from '../core/analytics-api.service';
 import { Dimension, Distribution, GroupPay, LEVELS, Overview, PayGroup } from '../core/models';
 import { BarChartComponent, BarItem } from '../shared/bar-chart.component';
+import { ReplaceUnderscorePipe } from '../shared/replace-underscore.pipe';
 
 /**
  * "How does the org pay people" in one screen: headline KPIs, pay by
@@ -21,7 +22,7 @@ import { BarChartComponent, BarItem } from '../shared/bar-chart.component';
   standalone: true,
   imports: [
     CurrencyPipe, DecimalPipe, TitleCasePipe, MatCardModule, MatButtonToggleModule, MatTableModule,
-    MatProgressBarModule, MatIconModule, MatButtonModule, BarChartComponent,
+    MatProgressBarModule, MatIconModule, MatButtonModule, BarChartComponent, ReplaceUnderscorePipe,
   ],
   templateUrl: './analytics-dashboard.component.html',
   styleUrl: './analytics-dashboard.component.scss',
@@ -75,7 +76,7 @@ export class AnalyticsDashboardComponent {
 
   averagePayBars(): BarItem[] {
     return this.orderedGroups().map((g) => ({
-      label: g.key,
+      label: g.key.replace(/_/g, ' '),
       value: g.averagePay,
       hint: `${g.headcount.toLocaleString()} employees`,
     }));

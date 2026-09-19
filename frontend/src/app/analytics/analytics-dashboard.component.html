@@ -16,19 +16,34 @@
 @if (overview(); as o) {
   <section class="kpis">
     <mat-card class="kpi">
-      <div class="kpi-label">Active headcount</div>
+      <div class="kpi-top">
+        <div class="kpi-label">Active headcount</div>
+        <span class="kpi-icon"><mat-icon>group</mat-icon></span>
+      </div>
       <div class="kpi-value">{{ o.activeHeadcount | number }}</div>
+      <div class="kpi-foot">employees currently active</div>
     </mat-card>
     <mat-card class="kpi">
-      <div class="kpi-label">Total annual payroll</div>
+      <div class="kpi-top">
+        <div class="kpi-label">Total annual payroll</div>
+        <span class="kpi-icon"><mat-icon>account_balance</mat-icon></span>
+      </div>
       <div class="kpi-value">{{ o.totalPayroll | currency:'USD':'symbol':'1.0-0' }}</div>
+      <div class="kpi-foot">base salaries, normalized to USD</div>
     </mat-card>
     <mat-card class="kpi">
-      <div class="kpi-label">Average salary</div>
+      <div class="kpi-top">
+        <div class="kpi-label">Average salary</div>
+        <span class="kpi-icon"><mat-icon>functions</mat-icon></span>
+      </div>
       <div class="kpi-value">{{ o.averageSalary | currency:'USD':'symbol':'1.0-0' }}</div>
+      <div class="kpi-foot">mean across active employees</div>
     </mat-card>
     <mat-card class="kpi">
-      <div class="kpi-label">Median salary</div>
+      <div class="kpi-top">
+        <div class="kpi-label">Median salary</div>
+        <span class="kpi-icon"><mat-icon>align_horizontal_center</mat-icon></span>
+      </div>
       <div class="kpi-value">{{ o.medianSalary | currency:'USD':'symbol':'1.0-0' }}</div>
       <div class="kpi-foot">
         Range {{ o.minSalary | currency:'USD':'symbol':'1.0-0' }} – {{ o.maxSalary | currency:'USD':'symbol':'1.0-0' }}
@@ -75,7 +90,7 @@
     <table mat-table [dataSource]="orderedGroups()" class="breakdown">
       <ng-container matColumnDef="key">
         <th mat-header-cell *matHeaderCellDef>{{ dimension() | titlecase }}</th>
-        <td mat-cell *matCellDef="let g" class="key">{{ g.key }}</td>
+        <td mat-cell *matCellDef="let g" class="key">{{ g.key | replaceUnderscore }}</td>
       </ng-container>
       <ng-container matColumnDef="headcount">
         <th mat-header-cell *matHeaderCellDef class="num">Headcount</th>

@@ -1,19 +1,27 @@
-<mat-toolbar color="primary" class="toolbar">
-  <span class="brand">
-    <mat-icon>payments</mat-icon>
-    ACME Salary Management
-  </span>
-  <nav>
-    <a mat-button routerLink="/employees" routerLinkActive="active">
-      <mat-icon>group</mat-icon>
-      Employees
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="brand" routerLink="/employees">
+      <span class="logo">
+        <mat-icon>payments</mat-icon>
+      </span>
+      <span class="brand-text">
+        <span class="brand-name">ACME Salary</span>
+        <span class="brand-sub">HR Manager workspace</span>
+      </span>
     </a>
-    <a mat-button routerLink="/analytics" routerLinkActive="active">
-      <mat-icon>insights</mat-icon>
-      Pay analytics
-    </a>
-  </nav>
-</mat-toolbar>
+
+    <nav class="nav">
+      <a routerLink="/employees" routerLinkActive="active">
+        <mat-icon>group</mat-icon>
+        <span>Employees</span>
+      </a>
+      <a routerLink="/analytics" routerLinkActive="active">
+        <mat-icon>insights</mat-icon>
+        <span>Pay analytics</span>
+      </a>
+    </nav>
+  </div>
+</header>
 
 <main class="content">
   <router-outlet></router-outlet>

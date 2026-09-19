@@ -1,6 +1,24 @@
 /* Angular Material prebuilt theme (M3, azure primary). */
 @import '@angular/material/prebuilt-themes/azure-blue.css';
 
+:root {
+  --brand: #005cbb;
+  --brand-dark: #003f8a;
+  --brand-soft: #e8f0fb;
+  --surface: #ffffff;
+  --bg: #f3f5f9;
+  --ink: #1b1f27;
+  --ink-2: #4b5563;
+  --ink-3: #6b7280;
+  --line: #e5e8ef;
+  --chart-primary: #005cbb;
+  --chart-track: #e9edf4;
+  --text-muted: #6b7280;
+  --radius: 14px;
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.05), 0 1px 3px rgba(16, 24, 40, 0.08);
+  --shadow-md: 0 4px 12px rgba(16, 24, 40, 0.08), 0 1px 3px rgba(16, 24, 40, 0.06);
+}
+
 html,
 body {
   height: 100%;
@@ -9,13 +27,109 @@ body {
 
 body {
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  background: #f6f7f9;
-  color: #1f1f1f;
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
 }
 
-/* Recessive grid/axis ink for charts. */
-:root {
-  --chart-primary: #005cbb;
-  --chart-track: #e8ebf0;
-  --text-muted: #5f6368;
+/* ---- Shared page primitives ---- */
+
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 20px;
+
+  h1 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+
+  .subtitle {
+    margin: 4px 0 0;
+    color: var(--ink-3);
+    font-size: 14px;
+  }
+}
+
+.card,
+mat-card.panel,
+mat-card.kpi {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 160ms ease, transform 160ms ease;
+}
+
+mat-card.kpi:hover,
+mat-card.panel:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* ---- Material tweaks ---- */
+
+.mat-mdc-table {
+  --mat-table-background-color: transparent;
+}
+
+.mat-mdc-header-row {
+  background: #fafbfd;
+}
+
+.mat-mdc-header-cell {
+  color: var(--ink-2);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-bottom-color: var(--line) !important;
+}
+
+.mat-mdc-cell {
+  border-bottom-color: var(--line) !important;
+  font-size: 14px;
+}
+
+.mat-mdc-row {
+  transition: background 120ms ease;
+
+  &:hover {
+    background: var(--brand-soft);
+  }
+}
+
+.mat-mdc-form-field {
+  --mdc-filled-text-field-container-color: var(--surface);
+}
+
+.mdc-button,
+.mat-mdc-button-base {
+  border-radius: 10px !important;
+}
+
+.mat-mdc-unelevated-button.mat-primary {
+  box-shadow: 0 1px 2px rgba(0, 92, 187, 0.25);
+}
+
+.mat-mdc-paginator {
+  background: transparent;
+  border-top: 1px solid var(--line);
+}
+
+.mat-mdc-snack-bar-container {
+  --mdc-snackbar-container-shape: 10px;
+}
+
+.mat-mdc-dialog-surface {
+  border-radius: var(--radius) !important;
+}
+
+/* Muted helper text */
+.muted {
+  color: var(--ink-3);
+  font-size: 13px;
 }

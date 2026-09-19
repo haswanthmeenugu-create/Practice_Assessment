@@ -1,6 +1,6 @@
 import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { CurrencyPipe, DatePipe, DecimalPipe, LowerCasePipe } from '@angular/common';
+import { CurrencyPipe, DatePipe, DecimalPipe, LowerCasePipe, TitleCasePipe } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
@@ -21,6 +21,7 @@ import {
 } from '../core/models';
 import { EmployeeFormDialogComponent, EmployeeFormData } from './employee-form-dialog.component';
 import { ConfirmDialogComponent } from '../shared/confirm-dialog.component';
+import { ReplaceUnderscorePipe } from '../shared/replace-underscore.pipe';
 
 /**
  * Paginated, filterable employee table. All paging/sorting/filtering is done
@@ -30,7 +31,8 @@ import { ConfirmDialogComponent } from '../shared/confirm-dialog.component';
   selector: 'app-employee-list',
   standalone: true,
   imports: [
-    ReactiveFormsModule, CurrencyPipe, DatePipe, DecimalPipe, LowerCasePipe,
+    ReactiveFormsModule, CurrencyPipe, DatePipe, DecimalPipe, LowerCasePipe, TitleCasePipe,
+    ReplaceUnderscorePipe,
     MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule,
     MatInputModule, MatSelectModule, MatButtonModule, MatIconModule,
     MatDialogModule, MatProgressBarModule, MatTooltipModule,
@@ -127,6 +129,20 @@ export class EmployeeListComponent {
   hasActiveFilters(): boolean {
     const f = this.filters.getRawValue();
     return !!(f.q || f.country || f.department || f.level || f.status);
+  }
+
+  initials(e: Employee): string {
+    return `${e.firstName.charAt(0)}${e.lastName.charAt(0)}`.toUpperCase();
+  }
+
+  /** Stable per-person hue so the same employee always gets the same avatar color. */
+  avatarColor(e: Employee): string {
+    let hash = 0;
+    for (const ch of e.employeeCode) {
+      hash = (hash * 31 + ch.charCodeAt(0)) | 0;
+    }
+    const hue = Math.abs(hash) % 360;
+    return `hsl(${hue} 45% 48%)`;
   }
 
   add(): void {
