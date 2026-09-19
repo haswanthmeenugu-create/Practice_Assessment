@@ -40,7 +40,7 @@ public class Employee {
     private Long id;
 
     /** Stable human-facing identifier, e.g. ACME-000042. */
-    @Column(name = "employee_code", nullable = false, unique = true, length = 20)
+    @Column(name = "employee_code", nullable = false, unique = true, length = 24)
     private String employeeCode;
 
     @Column(name = "first_name", nullable = false, length = 80)

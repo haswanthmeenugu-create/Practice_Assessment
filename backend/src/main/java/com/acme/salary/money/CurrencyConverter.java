@@ -22,4 +22,13 @@ public interface CurrencyConverter {
      * @return the amount in base currency, never null
      */
     BigDecimal toBase(BigDecimal amount, Currency from);
+
+    /**
+     * Convert {@code baseAmount} (in {@link #baseCurrency()}) into {@code to}.
+     * Inverse of {@link #toBase}; useful for producing realistic local-currency
+     * figures from a base-currency target.
+     *
+     * @return the amount in {@code to}, never null
+     */
+    BigDecimal fromBase(BigDecimal baseAmount, Currency to);
 }

@@ -4,6 +4,7 @@ import com.acme.salary.domain.Currency;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Objects;
@@ -56,6 +57,21 @@ public class StaticRateCurrencyConverter implements CurrencyConverter {
             throw new IllegalArgumentException("No FX rate configured for " + from);
         }
         // amount is in `from`; divide by (from per USD) to get USD.
-        return amount.divide(rate, 2, java.math.RoundingMode.HALF_UP);
+        return amount.divide(rate, 2, RoundingMode.HALF_UP);
+    }
+
+    @Override
+    public BigDecimal fromBase(BigDecimal baseAmount, Currency to) {
+        Objects.requireNonNull(baseAmount, "baseAmount");
+        Objects.requireNonNull(to, "to");
+        if (to == BASE) {
+            return baseAmount.setScale(2, RoundingMode.HALF_UP);
+        }
+        BigDecimal rate = RATES_PER_USD.get(to);
+        if (rate == null) {
+            throw new IllegalArgumentException("No FX rate configured for " + to);
+        }
+        // baseAmount is USD; multiply by (to per USD) to get `to`.
+        return baseAmount.multiply(rate).setScale(2, RoundingMode.HALF_UP);
     }
 }

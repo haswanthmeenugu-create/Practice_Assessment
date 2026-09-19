@@ -64,7 +64,8 @@ public class EmployeeService {
         Employee employee = new Employee();
         // Temporary unique code so the NOT NULL/UNIQUE constraint holds on first
         // insert; replaced with a stable ACME-###### code derived from the id.
-        employee.setEmployeeCode("TMP-" + UUID.randomUUID());
+        // 16 hex chars keep it within the column width while staying collision-safe.
+        employee.setEmployeeCode("TMP-" + UUID.randomUUID().toString().replace("-", "").substring(0, 16));
         apply(request, employee);
         Employee saved = repository.saveAndFlush(employee);
         saved.setEmployeeCode(formatCode(saved.getId()));
