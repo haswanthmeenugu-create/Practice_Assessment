@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(java -version)",
+      "PowerShell(mvn -v)",
+      "PowerShell(node -v)",
+      "PowerShell(npm -v)",
+      "PowerShell(ng version 2>$null)",
+      "Bash(cp \"C:/Users/HaswanthMeenugu/Downloads/Salary Management Assessment- Candidates.docx\" doc.zip)",
+      "Bash(unzip -o -q doc.zip -d docx)",
+      "Bash(python -c ' *)",
+      "Bash(PYTHONIOENCODING=utf8 python -c ' *)",
+      "Read(//c/Program Files/MySQL/**)",
+      "PowerShell($m = Get-ChildItem \"C:\\\\Program Files\\\\MySQL\\\\MySQL Server 8.0\\\\bin\\\\mysql.exe\" -ErrorAction SilentlyContinue; if \\($m\\) { $m.FullName; & $m.FullName -uroot -e \"select version\\(\\);\" 2>$null; \"exit=$LASTEXITCODE\" } else { \"mysql.exe not found\" }; docker --version 2>$null; \"docker exit=$LASTEXITCODE\")",
+      "Bash(git init *)",
+      "Bash(git config *)"
+    ]
+  }
+}
