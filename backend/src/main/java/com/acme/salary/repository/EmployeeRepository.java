@@ -71,6 +71,4 @@ public interface EmployeeRepository
             order by e.baseSalaryUsd asc
             """)
     List<BigDecimal> findActiveSalariesUsdAscending();
-
-    long countByStatus(com.acme.salary.domain.EmployeeStatus status);
 }

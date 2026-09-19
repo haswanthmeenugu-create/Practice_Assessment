@@ -1,0 +1,4 @@
+# Normalize line endings; keep the tree consistent across OSes.
+* text=auto eol=lf
+*.cmd text eol=crlf
+*.bat text eol=crlf

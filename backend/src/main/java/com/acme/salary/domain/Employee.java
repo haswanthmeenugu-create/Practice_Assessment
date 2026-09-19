@@ -94,8 +94,8 @@ public class Employee {
     @Column(name = "hire_date", nullable = false)
     private LocalDate hireDate;
 
-    protected Employee() {
-        // for JPA
+    public Employee() {
+        // for JPA and construction by the service layer
     }
 
     // Getters / setters
@@ -186,6 +186,14 @@ public class Employee {
 
     public void setCurrency(Currency currency) {
         this.currency = currency;
+    }
+
+    public BigDecimal getBaseSalaryUsd() {
+        return baseSalaryUsd;
+    }
+
+    public void setBaseSalaryUsd(BigDecimal baseSalaryUsd) {
+        this.baseSalaryUsd = baseSalaryUsd;
     }
 
     public EmploymentType getEmploymentType() {
