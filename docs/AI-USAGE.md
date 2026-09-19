@@ -56,6 +56,29 @@ Paraphrased from the session:
   wrote was deleted during review; the composition helper already skipped
   nulls.
 
+## Verification loop
+
+Nothing was accepted on the agent's word. Each stage was checked by running it:
+
+1. **Backend tests after every layer.** The first full run failed six tests;
+   the cause (placeholder code too long for its column) was fixed and re-run
+   to 30/30 green before commit.
+2. **Frontend build + headless unit tests** before the frontend commit. A
+   missing pipe import surfaced at compile time and was fixed. The Material
+   schematic silently failed on a flag; the theme, fonts and providers were
+   wired by hand and verified in the build output.
+3. **End-to-end smoke run.** The backend was started against H2 with seeding
+   on, the Angular dev server pointed at it, and both screens screenshotted
+   with headless Chrome (`docs/screenshots/`). Seeding 10,000 rows took ~1 s.
+   The screenshots exposed two cosmetic problems (wrapping columns, awkward
+   seeded job titles) which were then fixed.
+4. **Environment issues diagnosed, not guessed.** Two startup failures during
+   the smoke run were traced via logs to (a) another service on port 8080 and
+   (b) main properties overriding test properties, rather than retried blindly.
+
+The smoke run led to a product decision: a `demo` Spring profile so anyone
+can run the full system with no database setup.
+
 ## What the AI did not decide
 
 Stack, scope boundaries, what to exclude, database choice, the decision to

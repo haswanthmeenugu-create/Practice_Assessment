@@ -101,7 +101,20 @@ Spring Security later without touching controllers or services.
 | API integration | `@SpringBootTest` + MockMvc | Wiring, validation, error shapes, JSON contract |
 
 No mocking framework is used. Tests need no external database and run in
-under 20 seconds.
+under 20 seconds. Frontend: 10 Karma/Jasmine tests (API params, error
+mapping, dashboard loading/ordering, date formatting, shell). GitHub Actions
+runs both suites plus a production build on every push.
+
+## Runtime profiles
+
+| Profile | Database | Purpose |
+|---|---|---|
+| default | MySQL 8 (`DB_URL`, `DB_USERNAME`, `DB_PASSWORD`) | Real deployment; schema and seed created on first start |
+| `demo` | H2 in-memory | Zero-setup evaluation: `mvn spring-boot:run -Dspring-boot.run.profiles=demo` |
+| test (automatic) | H2 in-memory, seeding off | `mvn test` |
+
+The `demo` profile exists so a reviewer can run the whole system in under a
+minute without provisioning a database. Same code path, same seed, same API.
 
 ## Frontend structure
 

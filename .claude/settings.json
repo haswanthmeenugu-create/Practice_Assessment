@@ -20,7 +20,25 @@
       "Bash(echo \"push exit=$?\")",
       "Bash(node -e \"const p=require\\('./package.json'\\);console.log\\(p.dependencies['@angular/core'],p.dependencies['@angular/material']\\)\")",
       "Bash(node -e ' *)",
-      "Bash(rm -f src/app/app.component.spec.ts.bak)"
+      "Bash(rm -f src/app/app.component.spec.ts.bak)",
+      "Bash(curl -s --retry 30 --retry-delay 3 --retry-connrefused --retry-all-errors -m 10 http://localhost:8080/api/analytics/overview)",
+      "Bash(netstat -ano)",
+      "Bash(curl -s --retry 40 --retry-delay 3 --retry-connrefused --retry-all-errors -m 10 http://localhost:8080/api/analytics/overview)",
+      "Bash(curl -s -o /dev/null -w \"frontend http=%{http_code}\\\\n\" -m 10 http://localhost:4200/)",
+      "Bash(curl -s -m 10 http://localhost:4200/)",
+      "Bash(grep -vE \"^\\\\s+at |^\\\\s*$\" \"C:/Users/HASWAN~1/AppData/Local/Temp/claude/c--corrohealth-Practice-assessment/7d9d3283-0fd7-4c32-a9d5-0cb95b9ecc00/scratchpad/backend-h2.log\")",
+      "Bash(sed 's/.*c.a.salary.seed.DataSeeder *: //')",
+      "Bash(curl -s -m 10 http://localhost:8080/api/analytics/overview)",
+      "Bash(curl -s -m 10 http://localhost:8080/api/analytics/by/level)",
+      "Bash(node -e \"let s='';process.stdin.on\\('data',d=>s+=d\\).on\\('end',\\(\\)=>{const j=JSON.parse\\(s\\);for\\(const g of j.groups\\)console.log\\(g.key.padEnd\\(10\\),String\\(g.headcount\\).padStart\\(5\\),'avg',g.averagePay\\)}\\)\")",
+      "Bash(curl -s -m 10 http://localhost:8080/api/analytics/distribution)",
+      "Bash(node -e \"let s='';process.stdin.on\\('data',d=>s+=d\\).on\\('end',\\(\\)=>{for\\(const b of JSON.parse\\(s\\).buckets\\)console.log\\(b.from,'-',b.to,'=>',b.count\\)}\\)\")",
+      "Bash(curl -s -m 10 \"http://localhost:8080/api/employees?q=sharma&country=IN&size=3&sort=baseSalaryUsd&direction=desc\")",
+      "Bash(node -e \"let s='';process.stdin.on\\('data',d=>s+=d\\).on\\('end',\\(\\)=>{const j=JSON.parse\\(s\\);console.log\\('total',j.totalElements,'pages',j.totalPages\\);for\\(const e of j.content\\)console.log\\(e.employeeCode,e.firstName,e.lastName,e.country,e.currency,e.baseSalary,'USD',e.baseSalaryUsd,e.jobTitle\\)}\\)\")",
+      "Bash(curl -s -o /dev/null -w \"8080 http=%{http_code}\\\\n\" -m 5 http://localhost:8080/api/analytics/overview)",
+      "PowerShell(Get-CimInstance Win32_Process -Filter \"Name='java.exe'\" | Where-Object { $_.CreationDate -gt \\(Get-Date\\).Date.AddHours\\(21\\) } | Select-Object ProcessId, ParentProcessId, CreationDate, @{n='Cmd';e={ $_.CommandLine.Substring\\(0,[Math]::Min\\(160,$_.CommandLine.Length\\)\\) }} | Format-List)",
+      "Bash(taskkill //PID 3644 //T //F)",
+      "Bash(mvn -q -B spring-boot:run -Dspring-boot.run.profiles=demo)"
     ]
   }
 }
