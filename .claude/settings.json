@@ -13,7 +13,14 @@
       "Read(//c/Program Files/MySQL/**)",
       "PowerShell($m = Get-ChildItem \"C:\\\\Program Files\\\\MySQL\\\\MySQL Server 8.0\\\\bin\\\\mysql.exe\" -ErrorAction SilentlyContinue; if \\($m\\) { $m.FullName; & $m.FullName -uroot -e \"select version\\(\\);\" 2>$null; \"exit=$LASTEXITCODE\" } else { \"mysql.exe not found\" }; docker --version 2>$null; \"docker exit=$LASTEXITCODE\")",
       "Bash(git init *)",
-      "Bash(git config *)"
+      "Bash(git config *)",
+      "PowerShell(Get-Process -Name java -ErrorAction SilentlyContinue)",
+      "Bash(mvn -B test)",
+      "Bash(echo \"exit=$?\")",
+      "Bash(echo \"push exit=$?\")",
+      "Bash(node -e \"const p=require\\('./package.json'\\);console.log\\(p.dependencies['@angular/core'],p.dependencies['@angular/material']\\)\")",
+      "Bash(node -e ' *)",
+      "Bash(rm -f src/app/app.component.spec.ts.bak)"
     ]
   }
 }

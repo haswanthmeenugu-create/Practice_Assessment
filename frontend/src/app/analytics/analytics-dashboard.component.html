@@ -1,0 +1,104 @@
+<div class="page-header">
+  <div>
+    <h1>Pay analytics</h1>
+    <p class="subtitle">Active employees · all figures in {{ overview()?.baseCurrency ?? 'USD' }}</p>
+  </div>
+  <button mat-stroked-button (click)="loadAll()" [disabled]="loading()">
+    <mat-icon>refresh</mat-icon>
+    Refresh
+  </button>
+</div>
+
+@if (loading()) {
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+}
+
+@if (overview(); as o) {
+  <section class="kpis">
+    <mat-card class="kpi">
+      <div class="kpi-label">Active headcount</div>
+      <div class="kpi-value">{{ o.activeHeadcount | number }}</div>
+    </mat-card>
+    <mat-card class="kpi">
+      <div class="kpi-label">Total annual payroll</div>
+      <div class="kpi-value">{{ o.totalPayroll | currency:'USD':'symbol':'1.0-0' }}</div>
+    </mat-card>
+    <mat-card class="kpi">
+      <div class="kpi-label">Average salary</div>
+      <div class="kpi-value">{{ o.averageSalary | currency:'USD':'symbol':'1.0-0' }}</div>
+    </mat-card>
+    <mat-card class="kpi">
+      <div class="kpi-label">Median salary</div>
+      <div class="kpi-value">{{ o.medianSalary | currency:'USD':'symbol':'1.0-0' }}</div>
+      <div class="kpi-foot">
+        Range {{ o.minSalary | currency:'USD':'symbol':'1.0-0' }} – {{ o.maxSalary | currency:'USD':'symbol':'1.0-0' }}
+      </div>
+    </mat-card>
+  </section>
+}
+
+<section class="grid">
+  <mat-card class="panel">
+    <div class="panel-header">
+      <h2>Average pay by</h2>
+      <mat-button-toggle-group [value]="dimension()" (change)="changeDimension($event.value)" aria-label="Group by">
+        <mat-button-toggle value="country">Country</mat-button-toggle>
+        <mat-button-toggle value="department">Department</mat-button-toggle>
+        <mat-button-toggle value="level">Level</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+    <app-bar-chart
+      [data]="averagePayBars()"
+      valuePrefix="$"
+      [ariaLabel]="'Average salary in USD by ' + dimension()">
+    </app-bar-chart>
+  </mat-card>
+
+  <mat-card class="panel">
+    <div class="panel-header">
+      <h2>Salary distribution</h2>
+      <span class="muted">Employees per USD band</span>
+    </div>
+    <app-bar-chart
+      [data]="distributionBars()"
+      ariaLabel="Number of employees per salary band in USD">
+    </app-bar-chart>
+  </mat-card>
+</section>
+
+@if (groupPay(); as gp) {
+  <mat-card class="panel">
+    <div class="panel-header">
+      <h2>Breakdown by {{ dimension() }}</h2>
+      <span class="muted">{{ gp.groups.length }} groups</span>
+    </div>
+    <table mat-table [dataSource]="orderedGroups()" class="breakdown">
+      <ng-container matColumnDef="key">
+        <th mat-header-cell *matHeaderCellDef>{{ dimension() | titlecase }}</th>
+        <td mat-cell *matCellDef="let g" class="key">{{ g.key }}</td>
+      </ng-container>
+      <ng-container matColumnDef="headcount">
+        <th mat-header-cell *matHeaderCellDef class="num">Headcount</th>
+        <td mat-cell *matCellDef="let g" class="num">{{ g.headcount | number }}</td>
+      </ng-container>
+      <ng-container matColumnDef="averagePay">
+        <th mat-header-cell *matHeaderCellDef class="num">Average</th>
+        <td mat-cell *matCellDef="let g" class="num">{{ g.averagePay | currency:'USD':'symbol':'1.0-0' }}</td>
+      </ng-container>
+      <ng-container matColumnDef="totalPay">
+        <th mat-header-cell *matHeaderCellDef class="num">Total payroll</th>
+        <td mat-cell *matCellDef="let g" class="num">{{ g.totalPay | currency:'USD':'symbol':'1.0-0' }}</td>
+      </ng-container>
+      <ng-container matColumnDef="minPay">
+        <th mat-header-cell *matHeaderCellDef class="num">Min</th>
+        <td mat-cell *matCellDef="let g" class="num">{{ g.minPay | currency:'USD':'symbol':'1.0-0' }}</td>
+      </ng-container>
+      <ng-container matColumnDef="maxPay">
+        <th mat-header-cell *matHeaderCellDef class="num">Max</th>
+        <td mat-cell *matCellDef="let g" class="num">{{ g.maxPay | currency:'USD':'symbol':'1.0-0' }}</td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="groupColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: groupColumns"></tr>
+    </table>
+  </mat-card>
+}

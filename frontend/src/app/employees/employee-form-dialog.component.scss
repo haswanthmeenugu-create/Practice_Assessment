@@ -1,0 +1,22 @@
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 16px;
+  min-width: 520px;
+  padding-top: 8px;
+
+  .span-2 {
+    grid-column: span 2;
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+    min-width: 0;
+
+    .span-2 {
+      grid-column: span 1;
+    }
+  }
+}
