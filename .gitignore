@@ -24,3 +24,6 @@ Thumbs.db
 # Logs / env
 *.log
 .env
+
+# Local AI-tooling session settings
+.claude/
