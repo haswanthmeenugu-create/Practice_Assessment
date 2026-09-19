@@ -1,0 +1,21 @@
+/* Angular Material prebuilt theme (M3, azure primary). */
+@import '@angular/material/prebuilt-themes/azure-blue.css';
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background: #f6f7f9;
+  color: #1f1f1f;
+}
+
+/* Recessive grid/axis ink for charts. */
+:root {
+  --chart-primary: #005cbb;
+  --chart-track: #e8ebf0;
+  --text-muted: #5f6368;
+}

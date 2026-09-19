@@ -1,0 +1,20 @@
+<mat-toolbar color="primary" class="toolbar">
+  <span class="brand">
+    <mat-icon>payments</mat-icon>
+    ACME Salary Management
+  </span>
+  <nav>
+    <a mat-button routerLink="/employees" routerLinkActive="active">
+      <mat-icon>group</mat-icon>
+      Employees
+    </a>
+    <a mat-button routerLink="/analytics" routerLinkActive="active">
+      <mat-icon>insights</mat-icon>
+      Pay analytics
+    </a>
+  </nav>
+</mat-toolbar>
+
+<main class="content">
+  <router-outlet></router-outlet>
+</main>

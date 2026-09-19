@@ -1,0 +1,38 @@
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  gap: 24px;
+
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 500;
+  }
+
+  nav {
+    display: flex;
+    gap: 4px;
+
+    a {
+      color: inherit;
+      opacity: 0.85;
+
+      mat-icon {
+        margin-right: 4px;
+      }
+
+      &.active {
+        opacity: 1;
+        background: rgba(255, 255, 255, 0.14);
+      }
+    }
+  }
+}
+
+.content {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 24px;
+}
